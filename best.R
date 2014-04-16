@@ -8,6 +8,8 @@ best <- function(state, outcome) {
   
   state.data <- subset(data, State==state)
   names <- state.data$Hospital.Name
+  if (length(names)==0)
+    stop("invalid state")
   
   if (outcome=="heart attack") {
     y <- state.data$Hospital.30.Day.Death..Mortality..Rates.from.Heart.Attack    
@@ -18,11 +20,13 @@ best <- function(state, outcome) {
   }
   
   y <- suppressWarnings(as.numeric(y))
+  if(length(y)==0)
+    stop("invalid outcome")
   
   clean.data <- data.frame( names=names, y=y)
   clean.data <- clean.data[complete.cases(clean.data),]
   ord <- order(clean.data[,2], clean.data[,1])
   clean.data <- clean.data[ord,]
-  
   clean.data$names[[1]]
+
 }
