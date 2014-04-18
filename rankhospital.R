@@ -36,7 +36,6 @@ rankhospital <- function(state, outcome, num = "best") {
     return(tail(clean.data$names, 1))
   }
   else if (num >0 & num < length(clean.data$names)) {
-    #print(clean.data)
     return(clean.data$names[[num]])
   }
   else 
